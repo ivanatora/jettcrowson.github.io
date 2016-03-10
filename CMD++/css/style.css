@@ -70,7 +70,15 @@ body{
   text-indent: 15px;
   display: block;
   margin: auto;
-  font-size:20px;
+  /*font-size:20px;*/
+
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  -webkit-font-smoothing: antialiased;
+  /*margin: 0.8em 0;*/
+  font-size: 18px;
+  color: #B95;
+  line-height: 18px;
+  padding: 0px 0px 11px 0px;
 }
 
 input:focus,
@@ -123,4 +131,13 @@ button:focus {
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
+}
+
+td.response {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+    font-family: Courier, monospace;
+    -webkit-font-smoothing: antialiased;
+    margin: 0.8em 0;
+    font-size: 18px;
+    color: #B95;
 }

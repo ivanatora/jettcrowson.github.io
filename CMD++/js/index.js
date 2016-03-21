@@ -1,7 +1,4 @@
-/**
-TODO List:
-- See the README
-**/
+
 //All game values and functions will be stored here.
 var CMD = {
   //The currency variables
@@ -14,7 +11,8 @@ var CMD = {
   historyLastDirection: null,
   unit: "byte",
   dataShow: 0,
-  b: 1023,
+  b: 0,
+  counter:0,
   //Creates a new line in the CMD
   respond: function(text) {
     //Add a new table row, used as a line in the CMD
@@ -22,6 +20,10 @@ var CMD = {
       text + "</td></tr>");
   },
   gameLoop: setInterval(function() {
+    CMD.counter++;
+    if(CMD.counter%10==0){
+      CMD.commands.save(false);
+    }
     CMD.addData(CMD.autoIncrement);
   }, 1000),
   //When the user enters a command, this is run to check if they typed anything, and if they did, submit it to CMD.runCommand().
@@ -32,7 +34,9 @@ var CMD = {
       CMD.runCommand(command);
       // Add command to history
       if (CMD.historyBufferEnabled) {
-        CMD.historyBuffer.unshift(command);
+        if (CMD.historyBuffer[0] != command){
+            CMD.historyBuffer.unshift(command);
+        }
         if (CMD.historyBuffer.length > 10) { // Ensure we have a circular history
           CMD.historyBuffer.pop();
         }
@@ -96,10 +100,11 @@ var CMD = {
     CMD.money += amount;
     CMD.update();
   },
+
   //LIST ALL COMMANDS HERE, OTHERWISE THEY WILL RETURN AS NOT EXISTING
-  commandList: ["help", "mineData", "save", "autoMine", "sellData", "buyData", "buyCommand"],
+  commandList: ["help", "mineData", "save", "autoMine", "sellData", "buyData", "buyCommand", "load"],
   //SET EACH FUNCTION TO WHETHER IT IS UNLOCKED
-  commandUnlocked: [true, true, true, false, false, false, true],
+  commandUnlocked: [true, true, true, false, false, false, true, true],
   //Command object stores all game functions, not the actual engine functions
   commands: {
     help: function(toHelp) {
@@ -244,8 +249,36 @@ var CMD = {
         CMD.respond("Argument needed. Try: " + "sellData [amount]");
       }
     },
-    save: function() {
-      CMD.respond("TODO add save function");
+    load:function(){
+      if(localStorage.getItem("data")!==undefined){
+        //Load save.
+        CMD.b = JSON.parse(localStorage.getItem("data"));
+        CMD.money = JSON.parse(localStorage.getItem("money"));
+        CMD.increment = JSON.parse(localStorage.getItem("increment"));
+        CMD.autoIncrement = JSON.parse(localStorage.getItem("autoIncrement"));
+        CMD.commandUnlocked = JSON.parse(localStorage.getItem("unlocked"));
+        CMD.commands.goals[2] = JSON.parse(localStorage.getItem("bought"));
+        CMD.respond("Save loaded.");
+      }else{
+        CMD.respond("No save found.");
+      }
+    },
+    save: function(respondSave) {
+      if(typeof(Storage) !== "undefined") {
+        //Store variables in local storage
+        localStorage.setItem("data", JSON.stringify(CMD.b));
+        localStorage.setItem("money", JSON.stringify(CMD.money));
+        localStorage.setItem("increment", JSON.stringify(CMD.increment));
+        localStorage.setItem("autoIncrement", JSON.stringify(CMD.autoIncrement));
+        localStorage.setItem("unlocked", JSON.stringify(CMD.commandUnlocked));
+        localStorage.setItem("bought", JSON.stringify(CMD.commands.goals[2]));
+        //Gives the option to respond "Data saved" if you pass a variable. This is used so it doesn't output this every 10 seconds when the game is saved.
+        if(respondSave===undefined){
+        CMD.respond("Data saved.");
+      }
+      } else {
+        CMD.respond("Local storage is not supported on your browser.");
+      }
     }
   }
 };
@@ -286,5 +319,6 @@ $('#input').keyup(function(e) {
 $(document).ready(function() {
   CMD.respond("Welcome to CMD++");
   CMD.respond("Your goal here is to mine data.");
+  CMD.commands.load();
   CMD.respond("Type 'help' to get started.");
 });

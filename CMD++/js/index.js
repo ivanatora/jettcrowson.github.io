@@ -250,7 +250,7 @@ var CMD = {
       }
     },
     load:function(){
-      if(localStorage.getItem("data")!==undefined){
+      if(localStorage.getItem("data")!==undefined&&localStorage.getItem("increment")!==null){
         //Load save.
         CMD.b = JSON.parse(localStorage.getItem("data"));
         CMD.money = JSON.parse(localStorage.getItem("money"));
@@ -260,6 +260,7 @@ var CMD = {
         CMD.commands.goals[2] = JSON.parse(localStorage.getItem("bought"));
         CMD.respond("Save loaded.");
       }else{
+        CMD.commands.save();
         CMD.respond("No save found.");
       }
     },

@@ -13,6 +13,11 @@ Welcome to CMD++. This game is still in extremely early development, so if anyth
 
 #####Version History
 
+######V0.2
+- Added `save` and `load`
+- Fixed history buffer to not do repeat commands (thanks /u/crownie88)
+- The game now autosaves every 10 seconds
+
 ######V0.1
 - Added `buyCommand` function
 - Added `help` function with specific command help

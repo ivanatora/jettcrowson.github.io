@@ -250,7 +250,7 @@ var CMD = {
       }
     },
     load:function(){
-      if(typeof localStorage.getItem("data")!==undefined&&typeof localStorage.getItem("increment")!==undefined){
+      if(localStorage.getItem("data")!=="null"&&localStorage.getItem("increment")!=="null"){
         //Load save.
         CMD.b = JSON.parse(localStorage.getItem("data"));
         CMD.money = JSON.parse(localStorage.getItem("money"));

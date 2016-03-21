@@ -17,6 +17,7 @@ Welcome to CMD++. This game is still in extremely early development, so if anyth
 - Added `save` and `load`
 - Fixed history buffer to not do repeat commands (thanks /u/crownie88)
 - The game now autosaves every 10 seconds
+- Fixed the money count not showing up in the top left
 
 ######V0.1
 - Added `buyCommand` function

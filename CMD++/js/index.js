@@ -65,7 +65,7 @@ var CMD = {
         if (CMD.commandUnlocked[commandIndex]){
             CMD.commands[commandAndArgs[0]](commandAndArgs[1]);
         }else{
-            CMD.respond("Command not found.");
+            CMD.respond("Command locked. Use buyCommand to unlock new commands.");
         }
       }
     }

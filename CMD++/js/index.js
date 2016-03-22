@@ -61,16 +61,11 @@ var CMD = {
         CMD.respond("Command not found.");
       } else {
         console.log(commandAndArgs);
-        for (var i = 0; i < CMD.commandList.length; i++) {
-          //Check if command exists and is unlocked
-          if (commandAndArgs[0] === CMD.commandList[i] && CMD.commandUnlocked[i] ===
-            true) {
+        var commandIndex = CMD.commandList.indexOf(commandAndArgs[0]);
+        if (CMD.commandUnlocked[commandIndex]){
             CMD.commands[commandAndArgs[0]](commandAndArgs[1]);
-            //If the command DOES exist, but is not unlocked
-          } else if (commandAndArgs[0] === CMD.commandList[i] && CMD.commandUnlocked[
-            i] === false) {
+        }else{
             CMD.respond("Command not found.");
-          }
         }
       }
     }

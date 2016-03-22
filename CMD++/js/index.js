@@ -429,8 +429,11 @@ $(document).ready(function() {
   CMD.respond("Welcome to CMD++");
   CMD.respond("Your goal here is to mine data.");
   CMD.commands.save(false);
-      if(JSON.parse(localStorage.getItem("storage"))===null){
-      localStorage.setItem("storage", JSON.stringify("selectronTube"));
-    }
+  if(JSON.parse(localStorage.getItem("storage"))===null){
+      localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
+    CMD.commands.load();
+  }else{
+    CMD.commands.load(); 
+  }
   CMD.respond("Type 'help' to get started.");
 });

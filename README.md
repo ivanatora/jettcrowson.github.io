@@ -13,6 +13,13 @@ Welcome to CMD++. This game is still in extremely early development, so if anyth
 
 #####Version History
 
+######V0.3
+- Added storage sizes
+- New commands: `upgradeStorage`, `currentStorage` and added `help [function]` for both
+- Added version number
+- Added the functions `CMD.formatLargeData()` and `CMD.nFormat()`
+- Prices may need balancing
+
 ######V0.2
 - Added `save` and `load`
 - Fixed history buffer to not do repeat commands (thanks /u/crownie88)

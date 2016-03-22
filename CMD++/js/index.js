@@ -432,8 +432,10 @@ $(document).ready(function() {
   if(JSON.parse(localStorage.getItem("storage"))===null){
       localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
     CMD.commands.load();
+    CMD.commands.save();
   }else{
     CMD.commands.load(); 
+    CMD.commands.save();
   }
   CMD.respond("Type 'help' to get started.");
 });

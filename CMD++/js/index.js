@@ -251,7 +251,7 @@ var CMD = {
       }
     },
     load:function(){
-      if(localStorage.getItem("data")!=="null"&&localStorage.getItem("increment")!=="null"){
+      if(localStorage.getItem("data")!==null&&localStorage.getItem("increment")!==null){
         //Load save.
         CMD.data = JSON.parse(localStorage.getItem("data"));
         CMD.money = JSON.parse(localStorage.getItem("money"));
@@ -266,7 +266,7 @@ var CMD = {
       }
     },
     save: function(respondSave) {
-      if(typeof(Storage) !== "undefined") {
+      if(typeof(Storage) !== undefined) {
         //Store variables in local storage
         localStorage.setItem("data", JSON.stringify(CMD.data));
         localStorage.setItem("money", JSON.stringify(CMD.money));

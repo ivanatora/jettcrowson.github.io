@@ -429,6 +429,8 @@ $(document).ready(function() {
   CMD.respond("Welcome to CMD++");
   CMD.respond("Your goal here is to mine data.");
   CMD.commands.save(false);
-  CMD.commands.load();
+      if(JSON.parse(localStorage.getItem("storage"))===null){
+      localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
+    }
   CMD.respond("Type 'help' to get started.");
 });

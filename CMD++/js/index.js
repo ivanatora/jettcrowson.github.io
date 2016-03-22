@@ -429,13 +429,11 @@ $(document).ready(function() {
   CMD.respond("Welcome to CMD++");
   CMD.respond("Your goal here is to mine data.");
   CMD.commands.save(false);
-  if(JSON.parse(localStorage.getItem("storage"))===null){
+    if(localStorage.getItem("storage")===null){
       localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
     CMD.commands.load();
-    CMD.commands.save();
   }else{
-    CMD.commands.load(); 
-    CMD.commands.save();
+  CMD.commands.load(); 
   }
   CMD.respond("Type 'help' to get started.");
 });

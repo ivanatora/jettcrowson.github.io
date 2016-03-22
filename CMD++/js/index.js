@@ -88,7 +88,7 @@ var CMD = {
   //Update the data count
   update: function() {
     $("#dataCount").html(CMD.formatBytes(CMD.data));
-    $("#moneyCount").html("$" + CMD.money);
+    $("#moneyCount").html("$" + CMD.nFormat(CMD.money));
     var per = Math.floor(100*CMD.data/CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)]));
     $("#capac").html(per+"%");
   },
@@ -155,10 +155,10 @@ var CMD = {
   return (Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999991) ? ((n >= 0) ? Math.ceil(n) : Math.floor(n)) : ((n >= 0) ? Math.floor(n) : Math.ceil(n));
   },
  nFormat: function(n, d) {
-  var l = (floor(Math.log(Math.abs(n)) / nLog) <= 0) ? 0 : floor(Math.log(Math.abs(n)) / nLog),
+  var l = (CMD.floor(Math.log(Math.abs(n)) / CMD.nLog) <= 0) ? 0 : CMD.floor(Math.log(Math.abs(n)) / CMD.nLog),
   p = (l % 3 === 0) ? 2 : (((l - 1) % 3 === 0) ? 1 : 0),
-  r = (Math.abs(n) < 1000) ? ((typeof d === "number") ? n.toFixed(d) : floor(n)) : (floor(n / (Math.pow(10, floor(l / 3) * 3 - p))) / Math.pow(10, p));
-  return (r + nArray[floor(l / 3)] + ((floor(r) === 42) ? "~" : "")) || "Infinite";
+  r = (Math.abs(n) < 1000) ? ((typeof d === "number") ? n.toFixed(d) : CMD.floor(n)) : (CMD.floor(n / (Math.pow(10, CMD.floor(l / 3) * 3 - p))) / Math.pow(10, p));
+  return (r + CMD.nArray[CMD.floor(l / 3)] + ((CMD.floor(r) === 42) ? "~" : "")) || "Infinite";
 },
 
   //LIST ALL COMMANDS HERE, OTHERWISE THEY WILL RETURN AS NOT EXISTING
@@ -431,16 +431,3 @@ $(document).ready(function() {
   CMD.commands.load();
   CMD.respond("Type 'help' to get started.");
 });
-
-
-var nLog = Math.log(10);
-var nArray = ["", "k", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc", "UnD", "DuD", "TrD", "QaD", "QiD", "SeD", "SpD", "OcD", "NoD", "Vi", "UnV"];
-var floor = function(n) {
-  return (Math.abs(Math.abs(n) - Math.abs(Math.floor(n))) >= 0.999999991) ? ((n >= 0) ? Math.ceil(n) : Math.floor(n)) : ((n >= 0) ? Math.floor(n) : Math.ceil(n));
-};
-var nFormat = function(n, d) {
-  var l = (floor(Math.log(Math.abs(n)) / nLog) <= 0) ? 0 : floor(Math.log(Math.abs(n)) / nLog),
-  p = (l % 3 === 0) ? 2 : (((l - 1) % 3 === 0) ? 1 : 0),
-  r = (Math.abs(n) < 1000) ? ((typeof d === "number") ? n.toFixed(d) : floor(n)) : (floor(n / (Math.pow(10, floor(l / 3) * 3 - p))) / Math.pow(10, p));
-  return (r + nArray[floor(l / 3)] + ((floor(r) === 42) ? "~" : "")) || "Infinite";
-};

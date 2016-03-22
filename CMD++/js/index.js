@@ -428,12 +428,12 @@ $('#input').keyup(function(e) {
 $(document).ready(function() {
   CMD.respond("Welcome to CMD++");
   CMD.respond("Your goal here is to mine data.");
-  CMD.commands.save(false);
-    if(localStorage.getItem("storage")===null){
-      localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
-    CMD.commands.load();
+  if(localStorage.getItem("storage")===null||localStorage.getItem("data")===null||localStorage.getItem("money")===null){
+    CMD.commands.save();
   }else{
   CMD.commands.load(); 
   }
+
   CMD.respond("Type 'help' to get started.");
+
 });

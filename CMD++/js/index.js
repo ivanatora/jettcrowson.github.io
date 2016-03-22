@@ -11,7 +11,7 @@ var CMD = {
   historyLastDirection: null,
   unit: "byte",
   dataShow: 0,
-  b: 0,
+  data: 0,
   counter:0,
   //Creates a new line in the CMD
   respond: function(text) {
@@ -61,23 +61,18 @@ var CMD = {
         CMD.respond("Command not found.");
       } else {
         console.log(commandAndArgs);
-        for (var i = 0; i < CMD.commandList.length; i++) {
-          //Check if command exists and is unlocked
-          if (commandAndArgs[0] === CMD.commandList[i] && CMD.commandUnlocked[i] ===
-            true) {
+        var commandIndex = CMD.commandList.indexOf(commandAndArgs[0]);
+        if (CMD.commandUnlocked[commandIndex]){
             CMD.commands[commandAndArgs[0]](commandAndArgs[1]);
-            //If the command DOES exist, but is not unlocked
-          } else if (commandAndArgs[0] === CMD.commandList[i] && CMD.commandUnlocked[
-            i] === false) {
-            CMD.respond("Command not found.");
-          }
+        }else{
+            CMD.respond("Command locked. Use buyCommand to unlock new commands.");
         }
       }
     }
   },
   //Update the data count
   update: function() {
-    $("#dataCount").html(CMD.formatBytes(CMD.b));
+    $("#dataCount").html(CMD.formatBytes(CMD.data));
     $("#moneyCount").html("$" + CMD.money);
   },
   //Convert bytes->->kb->mb->gb->etc
@@ -92,7 +87,7 @@ var CMD = {
   },
   //Add data
   addData: function(amount) {
-    CMD.b += amount;
+    CMD.data += amount;
     CMD.update();
   },
   //Add money
@@ -176,18 +171,24 @@ var CMD = {
     buyCommand: function(toBuy) {
     if(toBuy!==undefined){
       //Make sure that the command exists
-      if(CMD.commands.goals[0].indexOf(toBuy)!==-1){
-        //Make sure it hasn't been unlocked already
-        if(CMD.commands.goals[2][CMD.commands.goals[0].indexOf(toBuy)]!==true){
-          //Unlock the command under the CMD.commandUnlocked array
-          CMD.commandUnlocked[CMD.commandList.indexOf(toBuy)]=true;
-          //Unlock the command so you can't buy it multiple times
-          CMD.commands.goals[2][CMD.commands.goals[0].indexOf(toBuy)]=true;
-          //Spend data on unlocking this command
-          CMD.b-=CMD.commands.goals[1][CMD.commands.goals[0].indexOf(toBuy)];
-          CMD.respond("Command unlocked: "+toBuy);
+      var commandIndex = CMD.commands.goals[0].indexOf(toBuy); 
+      if(commandIndex >= 0){
+        //Make sure there is enough data to buy the command.
+        if (CMD.data >= CMD.commands.goals[1][commandIndex]){
+            //Make sure it hasn't been unlocked already
+            if(CMD.commands.goals[2][commandIndex]!==true){
+                //Unlock the command under the CMD.commandUnlocked array
+                CMD.commandUnlocked[CMD.commandList.indexOf(toBuy)]=true;
+                //Unlock the command so you can't buy it multiple times
+                CMD.commands.goals[2][commandIndex]=true;
+                //Spend data on unlocking this command
+                CMD.addData(CMD.commands.goals[1][commandIndex]*-1);
+                CMD.respond("Command unlocked: "+toBuy);
+            }else{
+                CMD.respond("Command already unlocked.");
+            }
         }else{
-          CMD.respond("Command already unlocked.");
+            CMD.respond("You don't have enough data to buy this command.");
         }
       }else{
         CMD.respond("Command not found for purchase.");
@@ -215,7 +216,7 @@ var CMD = {
         var cost = amountToBuy * 2;
         if (CMD.money >= cost && typeof amountToBuy !== "number") {
           CMD.money -= cost;
-          CMD.b += Number(amountToBuy);
+          CMD.data += Number(amountToBuy);
           CMD.respond("" + amountToBuy + " data bought with $" + cost + ".");
         } else {
           CMD.respond("You do not have enough money.");
@@ -229,14 +230,14 @@ var CMD = {
       if (amount !== undefined) {
         Number(amount);
         //You must sell at least 100, and you must have enough to sell
-        if (CMD.b >= amount && CMD.b >= 100 && typeof amount !== "number") {
+        if (CMD.data >= amount && CMD.data >= 100 && typeof amount !== "number") {
           //Here is where we deteriorate the data. Too much? 
           var loss = Math.floor(Math.random() * 15 + 10);
           console.log(loss);
           //Apply the loss to the total money received
           var transfer = Math.round(amount * (1 - loss / 100));
           CMD.money += transfer;
-          CMD.b = CMD.b - amount;
+          CMD.data = CMD.data - amount;
           //No idea what data integrity is but it sounded right.
           CMD.respond(loss + "% data integrity lost in transfer. Data sold: " +
             amount + ". Money gained: $" + transfer + ".");
@@ -252,7 +253,7 @@ var CMD = {
     load:function(){
       if(localStorage.getItem("data")!=="null"&&localStorage.getItem("increment")!=="null"){
         //Load save.
-        CMD.b = JSON.parse(localStorage.getItem("data"));
+        CMD.data = JSON.parse(localStorage.getItem("data"));
         CMD.money = JSON.parse(localStorage.getItem("money"));
         CMD.increment = JSON.parse(localStorage.getItem("increment"));
         CMD.autoIncrement = JSON.parse(localStorage.getItem("autoIncrement"));
@@ -267,7 +268,7 @@ var CMD = {
     save: function(respondSave) {
       if(typeof(Storage) !== "undefined") {
         //Store variables in local storage
-        localStorage.setItem("data", JSON.stringify(CMD.b));
+        localStorage.setItem("data", JSON.stringify(CMD.data));
         localStorage.setItem("money", JSON.stringify(CMD.money));
         localStorage.setItem("increment", JSON.stringify(CMD.increment));
         localStorage.setItem("autoIncrement", JSON.stringify(CMD.autoIncrement));

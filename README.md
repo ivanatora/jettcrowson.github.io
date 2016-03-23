@@ -21,6 +21,7 @@ If your save does not work after an update, try [clearing your local storage on 
 
 ######V0.4
 - Added a `clear` function
+- Cleaned up some code
 
 ######V0.3
 - Added storage sizes

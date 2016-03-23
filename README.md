@@ -2,9 +2,13 @@
 #####An incremental game formed around a console.
 Welcome to CMD++. This game is still in extremely early development, so if anything is not perfect, or features are missing, be patient, or add them yourself by contributing! If you have any ideas, questions, bugs, suggestions, etc. post them in the [CMD++ Subreddit](https://www.reddit.com/r/cmdplusplus). The only way this will get better is with your feedback and contributions!
 
+[![Reddit](https://upload.wikimedia.org/wikipedia/en/b/b4/Reddit_logo.svg)](https://www.reddit.com/r/CMDPlusPlus/)
+[![Gitter](https://badges.gitter.im/cmdPP/core.svg)](https://gitter.im/cmdPP/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+####Attention:
+If your save does not work after an update, try [clearing your local storage on your browser](http://www.ghacks.net/2015/02/05/how-to-clear-web-storage-in-your-browser-of-choice/). I'll try my best to make sure this does not happen though. This also applies if a command says that it is not unlocked.
+
 #####Todo:
-- Add storage sizes
-- Add save and load function
 - Add upgrades
 - Add virus and antivirus
 - Add upgrades, both those bought with data or money
@@ -12,6 +16,19 @@ Welcome to CMD++. This game is still in extremely early development, so if anyth
 - PLEASE COMMIT MORE TODOS
 
 #####Version History
+
+######V0.4
+- Added a `clear` function
+- Cleaned up some code
+- Added `upgradeMine` for `mineData`
+- Minor changes and bug fixes
+
+######V0.3
+- Added storage sizes
+- New commands: `upgradeStorage`, `currentStorage` and added `help [function]` for both
+- Added version number
+- Added the functions `CMD.formatLargeData()` and `CMD.nFormat()`
+- Prices may need balancing
 
 ######V0.2
 - Added `save` and `load`

@@ -123,31 +123,22 @@ var CMD = {
     switch (letters) {
       case "Bytes":
         return digits*1;
-        break;
       case "KB":
-        return digits*1024;
-      break;
+        return formatLargeData((digits*1024)+"Bytes");
       case "MB":
-        return digits * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"KB");
       case "GB":
-        return digits * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"MB");
       case "TB":
-        return digits * 1024 * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"GB");
       case "PB":
-        return digits * 1024 * 1024 * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"TB");
       case "EB":
-        return digits * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"PB");
       case "ZB":
-        return digits * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"EB");
       case "YB":
-        return digits * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024;
-        break;
+        return formatLargeData((digits*1024)+"ZB");
     }
   },
   //Add data

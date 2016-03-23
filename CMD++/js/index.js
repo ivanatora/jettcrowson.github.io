@@ -19,10 +19,9 @@ var CMD = {
   storageCapacities: ["512Bytes", "1509949Bytes", "100MB", "5GB", "32GB", "512GB", "1TB", "16TB", "100TB", "1PB", "512PB", "128EB", "1ZB", "512ZB", "100000YB", "9999999999999999YB"],
   storagePricing: [0, 2500, 170000, 500000, 1500000, 8000000, 25000000, 75000000, 1750000000, 5250000000, 14000000000, 10000000000000, 40000000000000, 400000000000000, 3000000000000000, 9007199254740991],
   //Creates a new line in the CMD
-  respond: function(text, prefix) {
+  respond: function(text) {
     //Add a new table row, used as a line in the CMD
-    if (typeof prefix == 'undefined') prefix = '>';
-    $("#responses").append("<tr class='response'><td class='response'>" + prefix +" "+
+    $("#responses").append("<tr class='response'><td class='response'>> " +
       text + "</td></tr>");
   },
   gameLoop: setInterval(function() {
@@ -66,8 +65,6 @@ var CMD = {
   runCommand: function(commandToRun) {
     //REMEMBER: ALWAYS ADD YOUR COMMANDS TO THE COMMANDLIST ARRAY AND THE COMMAND OBJECT
     //Secret command to add 10% of your storage capacity. This is mostly just for testing what works. I'll remove this before release.
-    CMD.respond(commandToRun, '$');
-    
     if (commandToRun === "poppies") {
       CMD.data += CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)]) / 10;
     }
@@ -127,21 +124,21 @@ var CMD = {
       case "Bytes":
         return digits*1;
       case "KB":
-        return formatLargeData((digits*1024)+"Bytes");
+        return CMD.formatLargeData((digits*1024)+"Bytes");
       case "MB":
-        return formatLargeData((digits*1024)+"KB");
+        return CMD.formatLargeData((digits*1024)+"KB");
       case "GB":
-        return formatLargeData((digits*1024)+"MB");
+        return CMD.formatLargeData((digits*1024)+"MB");
       case "TB":
-        return formatLargeData((digits*1024)+"GB");
+        return CMD.formatLargeData((digits*1024)+"GB");
       case "PB":
-        return formatLargeData((digits*1024)+"TB");
+        return CMD.formatLargeData((digits*1024)+"TB");
       case "EB":
-        return formatLargeData((digits*1024)+"PB");
+        return CMD.formatLargeData((digits*1024)+"PB");
       case "ZB":
-        return formatLargeData((digits*1024)+"EB");
+        return CMD.formatLargeData((digits*1024)+"EB");
       case "YB":
-        return formatLargeData((digits*1024)+"ZB");
+        return CMD.formatLargeData((digits*1024)+"ZB");
     }
   },
   //Add data
@@ -508,6 +505,7 @@ $('#input').keyup(function(e) {
       }
       $('#input').val(sSelectedCommand);
     }
+  $("#input").focus();
   })
   //Called when the user first enters the page. 
 $(document).ready(function() {
@@ -520,5 +518,5 @@ $(document).ready(function() {
   }
 
   CMD.respond("Type 'help' to get started.");
-
+  $("#input").focus();
 });

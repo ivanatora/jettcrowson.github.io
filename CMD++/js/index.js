@@ -243,6 +243,11 @@ var CMD = {
             CMD.respond("Current increment: "+CMD.formatBytes(CMD.increment)+". Next price: $"+CMD.incCost);
             CMD.respond("To use: upgradeMine");
           break;
+          case "colorScheme":
+            CMD.respond(toHelp + ": Changes the theme.");
+            CMD.respond("Available themes: "+CMD.schemes.join(", "));
+            CMD.respond("To use: colorScheme [scheme]");
+          break;
           default:
             CMD.respond("Command not found or no help is available. Type 'help' with no arguments to see a list of commands.");
         }

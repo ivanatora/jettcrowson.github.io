@@ -122,8 +122,11 @@ var CMD = {
 
     switch (letters) {
       case "Bytes":
-        return digits;
+        return digits*1;
         break;
+      case "KB":
+        return digits*1024;
+      break;
       case "MB":
         return digits * 1024 * 1024;
         break;
@@ -202,7 +205,7 @@ var CMD = {
             break;
           case "sellData":
             CMD.respond(toHelp + ": Converts data to money. The conversion is 1 byte for $1, but the data deteriorates during transfer.");
-            CMD.respond("To use: sellData [amount]");
+            CMD.respond("To use: sellData [amount with unit, 1MB, 500Bytes, 88TB, etc]");
             break;
           case "buyData":
             CMD.respond(toHelp + ": Converts money to data. The conversion is 1 byte for $2.");
@@ -238,6 +241,11 @@ var CMD = {
             CMD.respond(toHelp + ": Clears the text off the screen.");
             CMD.respond("To use: clear");
             break;
+          case "upgradeMine":
+            CMD.respond(toHelp + ": Increases your mineData increment.");
+            CMD.respond("Current increment: "+CMD.formatBytes(CMD.increment)+". Next price: $"+CMD.incCost);
+            CMD.respond("To use: upgradeMine");
+          break;
           default:
             CMD.respond("Command not found or no help is available. Type 'help' with no arguments to see a list of commands.");
         }
@@ -334,7 +342,7 @@ var CMD = {
     //Amount mined is determined by the CMD.increment variable. Default is 1
     mineData: function() {
       if (CMD.checkStorage()&&(CMD.data+CMD.increment)<=CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)])) {
-        CMD.respond("Data mined.");
+        CMD.respond(CMD.formatBytes(CMD.increment)+ " mined.");
         CMD.addData(CMD.increment);
       } else {
         CMD.respond("Please upgrade your storage with upgradeStorage.");
@@ -371,9 +379,11 @@ var CMD = {
     //Sell data. Data is 1:$1 with money but deteriorates randomly (see var loss below)
     sellData: function(amount) {
       if (amount !== undefined) {
-        Number(amount);
+          amount=CMD.formatLargeData(amount);
+          Number(amount);
+        console.log(typeof amount + ", "+ amount);
         //You must sell at least 50, and you must have enough to sell
-        if (CMD.data >= amount && CMD.data >= 50 && typeof amount !== "number") {
+        if (CMD.data >= amount && CMD.data >= 50 && typeof amount === "number") {
           //Here is where we deteriorate the data. Too much? 
           var loss = Math.floor(Math.random() * 15 + 10);
           console.log(loss);
@@ -386,12 +396,13 @@ var CMD = {
             amount + ". Money gained: $" + transfer + ".");
         } else {
           CMD.respond(
-            "Please make sure you have enough data."
+            "Please make sure you have enough data and are using units. Example: sellData 150Bytes, sellData 154MB, etc."
           );
         }
       } else {
         CMD.respond("Argument needed. Try: " + "sellData [amount]");
       }
+
     },
     //Fetch saved files from local storage
     load: function() {

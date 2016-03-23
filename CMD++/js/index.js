@@ -19,9 +19,10 @@ var CMD = {
   storageCapacities: ["512Bytes", "1509949Bytes", "100MB", "5GB", "32GB", "512GB", "1TB", "16TB", "100TB", "1PB", "512PB", "128EB", "1ZB", "512ZB", "100000YB", "9999999999999999YB"],
   storagePricing: [0, 2500, 170000, 500000, 1500000, 8000000, 25000000, 75000000, 1750000000, 5250000000, 14000000000, 10000000000000, 40000000000000, 400000000000000, 3000000000000000, 9007199254740991],
   //Creates a new line in the CMD
-  respond: function(text) {
+  respond: function(text, prefix) {
     //Add a new table row, used as a line in the CMD
-    $("#responses").append("<tr class='response'><td class='response'>> " +
+    if (typeof prefix == 'undefined') prefix = '>';
+    $("#responses").append("<tr class='response'><td class='response'>" + prefix +" "+
       text + "</td></tr>");
   },
   gameLoop: setInterval(function() {
@@ -65,6 +66,8 @@ var CMD = {
   runCommand: function(commandToRun) {
     //REMEMBER: ALWAYS ADD YOUR COMMANDS TO THE COMMANDLIST ARRAY AND THE COMMAND OBJECT
     //Secret command to add 10% of your storage capacity. This is mostly just for testing what works. I'll remove this before release.
+    CMD.respond(commandToRun, '$');
+    
     if (commandToRun === "poppies") {
       CMD.data += CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)]) / 10;
     }

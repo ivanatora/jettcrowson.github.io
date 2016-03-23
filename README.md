@@ -2,6 +2,9 @@
 #####An incremental game formed around a console.
 Welcome to CMD++. This game is still in extremely early development, so if anything is not perfect, or features are missing, be patient, or add them yourself by contributing! If you have any ideas, questions, bugs, suggestions, etc. post them in the [CMD++ Subreddit](https://www.reddit.com/r/cmdplusplus). The only way this will get better is with your feedback and contributions!
 
+[![Reddit](https://upload.wikimedia.org/wikipedia/en/b/b4/Reddit_logo.svg)](https://www.reddit.com/r/CMDPlusPlus/)
+[![Gitter](https://badges.gitter.im/cmdPP/core.svg)](https://gitter.im/cmdPP/core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ######Attention:
 If your save does not work after an update, try clearing your local storage on your browser. I'll try my best to make sure this does not happen though.
 

@@ -307,6 +307,7 @@ var CMD = {
       if(CMD.money>=CMD.incCost){
         CMD.money-=CMD.incCost;
         CMD.increment+=1;
+        CMD.respond("mineData upgraded to increment: "+CMD.increment+" for $"+Math.floor(CMD.incCost));
         CMD.incCost=Math.floor(CMD.incCost*1.50);
       }else{
         CMD.respond("Not enough money to upgrade the mineData command.");

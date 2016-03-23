@@ -9,8 +9,6 @@ Welcome to CMD++. This game is still in extremely early development, so if anyth
 If your save does not work after an update, try [clearing your local storage on your browser](http://www.ghacks.net/2015/02/05/how-to-clear-web-storage-in-your-browser-of-choice/). I'll try my best to make sure this does not happen though. This also applies if a command says that it is not unlocked.
 
 #####Todo:
-- Add storage sizes
-- Add save and load function
 - Add upgrades
 - Add virus and antivirus
 - Add upgrades, both those bought with data or money
@@ -18,6 +16,11 @@ If your save does not work after an update, try [clearing your local storage on 
 - PLEASE COMMIT MORE TODOS
 
 #####Version History
+
+######V0.4
+- Added a `clear` function
+- Cleaned up some code
+- Added `upgradeMine` for `mineData`
 
 ######V0.3
 - Added storage sizes

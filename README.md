@@ -19,6 +19,9 @@ If your save does not work after an update, try [clearing your local storage on 
 
 #####Version History
 
+######V0.4
+- Added a `clear` function
+
 ######V0.3
 - Added storage sizes
 - New commands: `upgradeStorage`, `currentStorage` and added `help [function]` for both

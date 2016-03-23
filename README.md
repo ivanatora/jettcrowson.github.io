@@ -21,6 +21,7 @@ If your save does not work after an update, try [clearing your local storage on 
 - Added a `clear` function
 - Cleaned up some code
 - Added `upgradeMine` for `mineData`
+- Minor changes and bug fixes
 
 ######V0.3
 - Added storage sizes

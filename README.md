@@ -23,6 +23,7 @@ If your save does not work after an update, try [clearing your local storage on 
 - Added `upgradeMine` for `mineData`
 - Minor changes and bug fixes
 - Added autocomplete by `tab`
+- Console now displays typed commands
 
 ######V0.3
 - Added storage sizes

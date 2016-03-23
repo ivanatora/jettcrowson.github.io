@@ -13,17 +13,22 @@ var CMD = {
   dataShow: 0,
   data: 0,
   counter: 0,
+  schemes: ["coral", "naked", "ocean", "hacker", "fire", "mint", "invert", "default"],
+  currScheme: "default",
   //These are all variables for the storage upgrades
   currStorage: "selectronTube",
   storages: ["selectronTube", "floppyDisk", "zipDrive", "DVD", "sdCard", "flashDrive", "SSD", "ssdArray", "serverRack", "serverRoom", "serverWarehouse", "multipleLocations", "multipleCountries", "smallAfricanCountry", "alienSpaceArray", "enslaveHumans"],
   storageCapacities: ["512Bytes", "1509949Bytes", "100MB", "5GB", "32GB", "512GB", "1TB", "16TB", "100TB", "1PB", "512PB", "128EB", "1ZB", "512ZB", "100000YB", "9999999999999999YB"],
   storagePricing: [0, 2500, 170000, 500000, 1500000, 8000000, 25000000, 75000000, 1750000000, 5250000000, 14000000000, 10000000000000, 40000000000000, 400000000000000, 3000000000000000, 9007199254740991],
-  //Creates a new line in the CMD
-  respond: function(text) {
+   //Creates a new line in the CMD
+
+ respond: function(text, prefix) {
     //Add a new table row, used as a line in the CMD
-    $("#responses").append("<tr class='response'><td class='response'>> " +
+    if (typeof prefix == 'undefined') prefix = '>';
+    $("#responses").append("<tr class='response'><td class='response'><span class='accent'>" + prefix +"</span> "+
       text + "</td></tr>");
   },
+
   gameLoop: setInterval(function() {
     CMD.counter++;
     //Save it every 10 seconds
@@ -65,6 +70,7 @@ var CMD = {
   runCommand: function(commandToRun) {
     //REMEMBER: ALWAYS ADD YOUR COMMANDS TO THE COMMANDLIST ARRAY AND THE COMMAND OBJECT
     //Secret command to add 10% of your storage capacity. This is mostly just for testing what works. I'll remove this before release.
+    CMD.respond(commandToRun, '$');
     if (commandToRun === "poppies") {
       CMD.data += CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)]) / 10;
     }
@@ -165,9 +171,9 @@ var CMD = {
   },
 
   //LIST ALL COMMANDS HERE, OTHERWISE THEY WILL RETURN AS NOT EXISTING
-  commandList: ["help", "mineData", "save", "autoMine", "sellData", "buyData", "buyCommand", "upgradeStorage", "clear", "load", "currentStorage", "upgradeMine"],
+  commandList: ["help", "mineData", "save", "autoMine", "sellData", "buyData", "buyCommand", "upgradeStorage", "clear", "load", "currentStorage", "upgradeMine", "colorScheme"],
   //SET EACH FUNCTION TO WHETHER IT IS UNLOCKED
-  commandUnlocked: [true, true, true, false, false, false, true, true, true, true, true, true],
+  commandUnlocked: [true, true, true, false, false, false, true, true, true, true, true, true, false],
   //Command object stores all game functions, not the actual engine functions
   commands: {
     help: function(toHelp) {
@@ -241,7 +247,7 @@ var CMD = {
             CMD.respond("Command not found or no help is available. Type 'help' with no arguments to see a list of commands.");
         }
       } else {
-        CMD.respond("########################################");
+        CMD.respond("<span class='accent'>########################################</span>");
         CMD.respond("List of commands:");
         var availableCommands = [];
         //Only view commands that are available under the CMD.commandUnlocked array
@@ -254,14 +260,14 @@ var CMD = {
           ", "));
         CMD.respond(" ");
         CMD.respond("For specific command help type, 'help [command]'");
-        CMD.respond("########################################");
+        CMD.respond("<span class='accent'>########################################</span>");
       }
     },
     //list commands to buy in corresponding spots of the three arrays
     goals: [
-      ["autoMine", "buyData", "sellData"],
-      [20, 150, 250],
-      [false, false, false]
+      ["autoMine", "buyData", "sellData", "colorScheme"],
+      [20, 150, 250, 5120],
+      [false, false, false, false]
     ],
 
     //Purchase and unlock commands
@@ -395,6 +401,74 @@ var CMD = {
       }
 
     },
+    //Changes the color scheme
+    //ALWAYS ADD THEMES TO THE CMD.schemes[] VARIABLE
+    colorScheme: function(scheme){
+      var back, text, accent;
+      if(scheme!==undefined){
+        switch(scheme){
+          case "coral":
+            back="#042029";
+            text="#268BD2";
+            accent="#859900";
+            CMD.currScheme=scheme;
+          break;
+          case "naked":
+            back="#b3c2bf";
+            text="#3b3a36";
+            accent="#27588F";
+            CMD.currScheme=scheme;
+          break;
+          case "ocean":
+            back="#89bdd3";
+            text="white";
+            accent="#105BAD";
+            CMD.currScheme=scheme;
+          break;
+          case "hacker":
+            back="black";
+            text="#82B600";
+            accent="#887F32";
+            CMD.currScheme=scheme;
+          break;
+          case "fire":
+            back="#e62739";
+            text="white";
+            accent="yellow";
+            CMD.currScheme=scheme;
+          break;
+          case "mint":
+            back="#3F4531";
+            text="#91F9E5";
+            accent="#7CFFA6";
+            CMD.currScheme=scheme;
+          break;
+          case "invert":
+            back="white";
+            text="black";
+            accent="black";
+            CMD.currScheme=scheme;
+          break;
+          case "default":
+            back="black";
+            text="white";
+            accent="white";
+            CMD.currScheme=scheme;
+          break;
+          default:
+            CMD.respond("Theme not found. For a list of themes type, 'help colorScheme'");
+        }
+    $("#cmdWindow").css("background-color", back);
+    $("#stats").css("background-color", back);
+    $("#input").css("background-color", back);
+    $("#cmdWindow").css("color", text);
+    $("#stats").css("color", text);
+    $("#input").css("color", accent);
+    $(document.head).append("<style>.accent{color:"+accent+";}#input{border-top:1px solid "+accent+";}</style>");
+      }else{
+        CMD.respond("Please enter an argument. For help type, 'help colorScheme'");
+      }
+    },
     //Fetch saved files from local storage
     load: function() {
       //Make sure that the localstorage is not corrupted (This is not perfect, you may have to clear it with a new update)
@@ -408,6 +482,8 @@ var CMD = {
         CMD.commands.goals[2] = JSON.parse(localStorage.getItem("bought"));
         CMD.currStorage = JSON.parse(localStorage.getItem("storage"));
         CMD.incCost = JSON.parse(localStorage.getItem("incCost"));
+        CMD.currScheme = JSON.parse(localStorage.getItem("currScheme"));
+        CMD.commands.colorScheme(CMD.currScheme);
         CMD.respond("Save loaded.");
       } else {
         CMD.commands.save();
@@ -425,6 +501,7 @@ var CMD = {
         localStorage.setItem("storage", JSON.stringify(CMD.currStorage));
         localStorage.setItem("bought", JSON.stringify(CMD.commands.goals[2]));
         localStorage.setItem("incCost", JSON.stringify(CMD.incCost));
+        localStorage.setItem("currScheme", JSON.stringify(CMD.currScheme));
 
         //Gives the option to respond "Data saved" if you pass a variable. This is used so it doesn't output this every 10 seconds when the game is saved.
         if (respondSave === undefined) {

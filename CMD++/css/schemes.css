@@ -158,3 +158,45 @@
   color: white;
 }
 
+/* golden */
+.scheme-golden body {
+  
+}
+.scheme-golden #cmdWindow {
+  background-color: black;
+  
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  color: #B95;
+}
+.scheme-golden #stats {
+  background-color: black;
+  
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  color: #B95;
+}
+.scheme-golden #input {
+  background-color: black;
+  border-top: 1px solid #B95;
+  
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  color: #B95;
+}
+.scheme-golden #stats {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  color: #B95;
+}
+.scheme-golden .accent {
+  color: white;
+}

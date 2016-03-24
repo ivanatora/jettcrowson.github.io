@@ -73,6 +73,7 @@ var CMD = {
     CMD.respond(commandToRun, '$');
     if (commandToRun === "poppies") {
       CMD.data += CMD.formatLargeData(CMD.storageCapacities[CMD.storages.indexOf(CMD.currStorage)]) / 10;
+//			CMD.data += 500000;
     }
     //Break away args
     if (commandToRun.indexOf(" ") !== -1 && commandToRun[commandToRun.indexOf(
@@ -244,8 +245,8 @@ var CMD = {
             CMD.respond("To use: upgradeMine");
           break;
           case "colorScheme":
-            CMD.respond(toHelp + ": Changes the theme.");
-            CMD.respond("Available themes: "+CMD.schemes.join(", "));
+            CMD.respond(toHelp + ": Changes the terminal color scheme.");
+            CMD.respond("Available schemes: "+CMD.schemes.join(", "));
             CMD.respond("To use: colorScheme [scheme]");
           break;
           default:
@@ -409,67 +410,17 @@ var CMD = {
     //Changes the color scheme
     //ALWAYS ADD THEMES TO THE CMD.schemes[] VARIABLE
     colorScheme: function(scheme){
+			$('body').removeClass('scheme-'+CMD.currScheme);
+			$('body').addClass('scheme-'+scheme);
       var back, text, accent;
-      if(scheme!==undefined){
-        switch(scheme){
-          case "coral":
-            back="#042029";
-            text="#268BD2";
-            accent="#859900";
-            CMD.currScheme=scheme;
-          break;
-          case "naked":
-            back="#b3c2bf";
-            text="#3b3a36";
-            accent="#27588F";
-            CMD.currScheme=scheme;
-          break;
-          case "ocean":
-            back="#89bdd3";
-            text="white";
-            accent="#105BAD";
-            CMD.currScheme=scheme;
-          break;
-          case "hacker":
-            back="black";
-            text="#82B600";
-            accent="#887F32";
-            CMD.currScheme=scheme;
-          break;
-          case "fire":
-            back="#e62739";
-            text="white";
-            accent="yellow";
-            CMD.currScheme=scheme;
-          break;
-          case "mint":
-            back="#3F4531";
-            text="#91F9E5";
-            accent="#7CFFA6";
-            CMD.currScheme=scheme;
-          break;
-          case "invert":
-            back="white";
-            text="black";
-            accent="black";
-            CMD.currScheme=scheme;
-          break;
-          case "default":
-            back="black";
-            text="white";
-            accent="white";
-            CMD.currScheme=scheme;
-          break;
-          default:
-            CMD.respond("Theme not found. For a list of themes type, 'help colorScheme'");
-        }
-    $("#cmdWindow").css("background-color", back);
-    $("#stats").css("background-color", back);
-    $("#input").css("background-color", back);
-    $("#cmdWindow").css("color", text);
-    $("#stats").css("color", text);
-    $("#input").css("color", accent);
-    $(document.head).append("<style>.accent{color:"+accent+";}#input{border-top:1px solid "+accent+";}</style>");
+      if(scheme !== undefined){
+				if (CMD.schemes.indexOf(scheme) == -1){
+					CMD.respond("Invalid scheme.");
+					CMD.respond("Available schemes: "+CMD.schemes.join(", "));
+				}
+				else {
+					CMD.currScheme = scheme;
+				}
       }else{
         CMD.respond("Please enter an argument. For help type, 'help colorScheme'");
       }

@@ -1,0 +1,160 @@
+/* coral */
+.scheme-coral #cmdWindow {
+  background-color: #042029;
+  color: #268BD2;
+}
+.scheme-coral #stats {
+  background-color: #042029;
+}
+.scheme-coral #input {
+  background-color: #042029;
+  color: #268BD2;
+  border-top: 1px solid #859900;
+}
+.scheme-coral #stats {
+  color: #268BD2;
+}
+.scheme-coral .accent {
+  color: #859900;
+}
+
+/* naked */
+.scheme-naked #cmdWindow {
+  background-color: #b3c2bf;
+  color: #3b3a36;
+}
+.scheme-naked #stats {
+  background-color: #b3c2bf;
+}
+.scheme-naked #input {
+  background-color: #b3c2bf;
+  color: #3b3a36;
+  border-top: 1px solid #27588F;
+}
+.scheme-naked #stats {
+  color: #3b3a36;
+}
+.scheme-naked .accent {
+  color: #27588F;
+}
+
+/* ocean */
+.scheme-ocean #cmdWindow {
+  background-color: #89bdd3;
+  color: white;
+}
+.scheme-ocean #stats {
+  background-color: #89bdd3;
+}
+.scheme-ocean #input {
+  background-color: #89bdd3;
+  color: white;
+  border-top: 1px solid #105BAD;
+}
+.scheme-ocean #stats {
+  color: white;
+}
+.scheme-ocean .accent {
+  color: #105BAD;
+}
+
+/* hacker */
+.scheme-hacker #cmdWindow {
+  background-color: black;
+  color: #82B600;
+}
+.scheme-hacker #stats {
+  background-color: black;
+}
+.scheme-hacker #input {
+  background-color: black;
+  color: #82B600;
+  border-top: 1px solid #887F32;
+}
+.scheme-hacker #stats {
+  color: #82B600;
+}
+.scheme-hacker .accent {
+  color: #887F32;
+}
+
+/* fire */
+.scheme-fire #cmdWindow {
+  background-color: #e62739;
+  color: white;
+}
+.scheme-fire #stats {
+  background-color: #e62739;
+}
+.scheme-fire #input {
+  background-color: #e62739;
+  color: white;
+  border-top: 1px solid yellow;
+}
+.scheme-fire #stats {
+  color: white;
+}
+.scheme-fire .accent {
+  color: yellow;
+}
+
+/* mint */
+.scheme-mint #cmdWindow {
+  background-color: #3F4531;
+  color: #91F9E5;
+}
+.scheme-mint #stats {
+  background-color: #3F4531;
+}
+.scheme-mint #input {
+  background-color: #3F4531;
+  color: #91F9E5;
+  border-top: 1px solid #7CFFA6;
+}
+.scheme-mint #stats {
+  color: #91F9E5;
+}
+.scheme-mint .accent {
+  color: #7CFFA6;
+}
+
+/* invert */
+.scheme-invert #cmdWindow {
+  background-color: white;
+  color: black;
+}
+.scheme-invert #stats {
+  background-color: white;
+}
+.scheme-invert #input {
+  background-color: white;
+  color: black;
+  border-top: 1px solid black;
+}
+.scheme-invert #stats {
+  color: black;
+}
+.scheme-invert .accent {
+  color: black;
+}
+
+/* default */
+.scheme-default #cmdWindow {
+  background-color: black;
+  color: white;
+}
+.scheme-default #stats {
+  background-color: black;
+}
+.scheme-default #input {
+  background-color: black;
+  color: white;
+  border-top: 1px solid white;
+}
+.scheme-default #stats {
+  color: white;
+}
+.scheme-default .accent {
+  color: white;
+}
+

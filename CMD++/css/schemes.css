@@ -189,6 +189,9 @@
   -webkit-font-smoothing: antialiased;
   font-size: 18px;
   color: #B95;
+  
+  padding: 7px 0 7px 0;
+  height: inherit;
 }
 .scheme-golden #stats {
   text-shadow: 0 0 8px rgba(255, 255, 255, 1);
